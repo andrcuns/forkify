@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiKey } from "../config"
+import apiKey from "../config";
 
 export default class Recipe {
     constructor(id) {
@@ -15,8 +15,7 @@ export default class Recipe {
             this.url = res.data.recipe.source_url;
             this.ingredients = res.data.recipe.ingredients;
         } catch (error) {
-            console.log(error)
-            alert("Something went wrong :(")
+            alert("Something went wrong :(");
         }
     }
 

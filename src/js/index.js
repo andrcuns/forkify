@@ -1,5 +1,4 @@
 import Search from "./models/Search";
-import Recipe from "./models/Recipe"
 import * as searchView from "./views/searchView";
 import { elements, renderLoader, clearLoader } from "./views/base";
 
@@ -22,21 +21,21 @@ const controlSearch = async () => {
 
         searchView.clearInput();
         searchView.clearResults();
-        renderLoader(elements.searchResults)
+        renderLoader(elements.searchResults);
 
         await state.search.getResults();
 
         clearLoader();
         searchView.renderResults(state.search.recipes);
     }
-}
+};
 
-elements.searchForm.addEventListener("submit", e => {
+elements.searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     controlSearch();
 });
 
-elements.searchResultsPages.addEventListener("click", e => {
+elements.searchResultsPages.addEventListener("click", (e) => {
     const btn = e.target.closest(".btn-inline");
     if (btn) {
         const goToPage = parseInt(btn.dataset.goto, 10);
@@ -44,4 +43,4 @@ elements.searchResultsPages.addEventListener("click", e => {
         searchView.clearResults();
         searchView.renderResults(state.search.recipes, goToPage);
     }
-})
+});
