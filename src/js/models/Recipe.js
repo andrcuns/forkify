@@ -7,16 +7,12 @@ export default class Recipe {
     }
 
     async getRecipe() {
-        try {
-            const res = await axios(`https://www.food2fork.com/api/get?key=${apiKey}&rId=${this.id}`);
-            this.title = res.data.recipe.title;
-            this.author = res.data.recipe.publisher;
-            this.img = res.data.recipe.image_url;
-            this.url = res.data.recipe.source_url;
-            this.ingredients = res.data.recipe.ingredients;
-        } catch (error) {
-            alert("Something went wrong :(");
-        }
+        const result = await axios(`https://www.food2fork.com/api/get?key=${apiKey}&rId=${this.id}`);
+        this.title = result.data.recipe.title;
+        this.author = result.data.recipe.publisher;
+        this.img = result.data.recipe.image_url;
+        this.url = result.data.recipe.source_url;
+        this.ingredients = result.data.recipe.ingredients;
     }
 
     calcTime() {
