@@ -1,16 +1,24 @@
 import { elements } from "./base"
 
 export const getInput = () => elements.searchInput.value;
+
 export const clearInput = () => {
     elements.searchInput.value = "";
 };
+
 export const clearResults = () => {
     elements.searchResultList.innerHTML = "";
+    elements.searchResultsPages.innerHTML = "";
 }
 
 
-export const renderResults = recipes => {
-    recipes.forEach(renderRecipe);
+export const renderResults = (recipes, page = 1, recipesPerPage = 10) => {
+    const start = (page - 1) * recipesPerPage;
+    const end = page * recipesPerPage;
+
+    recipes.slice(start, end).forEach(renderRecipe);
+
+    renderButtons(page, recipes.length, recipesPerPage);
 };
 
 const renderRecipe = recipe => {
@@ -27,8 +35,35 @@ const renderRecipe = recipe => {
                     </a>
                 </li>
                 `;
-    elements.searchResultList.insertAdjacentHTML("beforeend", markup)
+    elements.searchResultList.insertAdjacentHTML("beforeend", markup);
 };
+
+const renderButtons = (page, numRecipes, recipesPerPage) => {
+    const pages = Math.ceil(numRecipes / recipesPerPage);
+    let button;
+
+    if (page === 1 && pages > 1) {
+        button = createButton(page, "next")
+    } else if (page === pages) {
+        button = createButton(page, "prev")
+    } else {
+        button = `
+            ${createButton(page, "prev")}
+            ${createButton(page, "next")}
+        `;
+    }
+
+    elements.searchResultsPages.insertAdjacentHTML("afterbegin", button)
+};
+
+const createButton = (page, direction) => `
+    <button class="btn-inline results__btn--${direction}" data-goto=${direction === "prev" ? page - 1 : page + 1}>
+        <span>Page ${direction === "prev" ? page - 1 : page + 1}</span>
+        <svg class="search__icon">
+            <use href="img/icons.svg#icon-triangle-${direction === 'prev' ? 'left' : 'right'}"></use>
+        </svg>
+    </button>
+`;
 
 const limitRecipeTitle = (title, limit = 17) => {
     const reducedTitle = [];
