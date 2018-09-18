@@ -5,7 +5,8 @@
     "quotes": ["error", "double"],
     "no-alert": "off",
     "no-eval": "off",
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "no-param-reassign": "off"
   },
   "env": {
     "browser": true,

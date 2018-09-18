@@ -84,3 +84,16 @@ elements.searchResultsPages.addEventListener("click", (e) => {
 ["hashchange", "load"].forEach((event) => {
     window.addEventListener(event, controlRecipe);
 });
+
+elements.recipe.addEventListener("click", event => {
+    if (event.target.matches(".btn-decrease, .btn-decrease *")) {
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServings("dec");
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    }
+    if (event.target.matches(".btn-increase, .btn-increase *")) {
+        state.recipe.updateServings("inc");
+        recipeView.updateServingsIngredients(state.recipe);
+    }
+});
