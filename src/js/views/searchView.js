@@ -69,6 +69,13 @@ export const clearResults = () => {
     elements.searchResultsPages.innerHTML = "";
 };
 
+export const highlightSelected = id => {
+    const activeLink = "results__link--active";
+    Array.from(document.querySelectorAll(".results__link")).forEach(el => {
+        el.classList.remove(activeLink);
+    });
+    document.querySelector(`a[href='#${id}']`).classList.add(activeLink);
+};
 
 export const renderResults = (recipes, page = 1, recipesPerPage = 10) => {
     const start = (page - 1) * recipesPerPage;
