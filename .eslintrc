@@ -3,7 +3,9 @@
   "rules": {
     "indent": ["error", 4],
     "quotes": ["error", "double"],
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-eval": "off",
+    "arrow-parens": "off"
   },
   "env": {
     "browser": true,

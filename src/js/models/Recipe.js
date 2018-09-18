@@ -24,4 +24,52 @@ export default class Recipe {
     calcServings() {
         this.servings = 4;
     }
+
+    parseIngredients() {
+        const unitsLong = ["tablespoons", "tablespoon", "ounces", "ounce", "teaspoons", "teaspoon", "cups", "pounds"];
+        const unitsShort = ["tbsp", "tbsp", "oz", "oz", "tsp", "tsp", "cup", "pound"];
+        this.ingredients = this.ingredients.map(element => {
+            let ingredient = element.toLowerCase();
+
+            unitsLong.forEach((unit, index) => {
+                ingredient = ingredient.replace(unit, unitsShort[index]);
+            });
+            ingredient = ingredient.replace(/ *\([^)]*\) */g, " ");
+
+            const ingredientArr = ingredient.split(" ");
+            const unitIndex = ingredientArr.findIndex(el => unitsShort.includes(el));
+
+            let objIngredient;
+            if (unitIndex > -1) {
+                const arrCount = ingredientArr.slice(0, unitIndex);
+
+                let count;
+                if (arrCount.length === 1) {
+                    count = eval(arrCount[0].replace("-", "+"));
+                } else {
+                    count = eval(ingredient.slice(0, unitIndex).joing("+"));
+                }
+
+                objIngredient = {
+                    count,
+                    unit: ingredientArr[unitIndex],
+                    ingredient: ingredientArr.slice(unitIndex + 1).join(" "),
+                };
+            } else if (parseInt(ingredientArr[0], 10)) {
+                objIngredient = {
+                    count: 1,
+                    unit: "",
+                    ingredient: ingredientArr.slice(1).join(" "),
+                };
+            } else if (unitIndex === -1) {
+                objIngredient = {
+                    count: 1,
+                    unit: "",
+                    ingredient,
+                };
+            }
+
+            return objIngredient;
+        });
+    }
 }

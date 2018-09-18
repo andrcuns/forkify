@@ -48,6 +48,7 @@ const controlRecipe = async () => {
         try {
             await state.recipe.getRecipe();
 
+            state.recipe.parseIngredients();
             state.recipe.calcTime();
             state.recipe.calcServings();
         } catch (error) {
