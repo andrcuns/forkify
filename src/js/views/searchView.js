@@ -9,7 +9,7 @@ const createButton = (page, direction) => `
     </button>
 `;
 
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const reducedTitle = [];
     if (title.length > limit) {
         title.split(" ").reduce((acc, cur) => {
@@ -74,7 +74,7 @@ export const highlightSelected = id => {
     Array.from(document.querySelectorAll(".results__link")).forEach(el => {
         el.classList.remove(activeLink);
     });
-    document.querySelector(`a[href='#${id}']`).classList.add(activeLink);
+    document.querySelector(`.results__link[href='#${id}']`).classList.add(activeLink);
 };
 
 export const renderResults = (recipes, page = 1, recipesPerPage = 10) => {
