@@ -7,11 +7,7 @@ export default class Search {
     }
 
     async getResults() {
-        try {
-            const result = await axios(`https://www.food2fork.com/api/search?key=${apiKey}&q=${this.query}`);
-            this.recipes = result.data.recipes;
-        } catch (error) {
-            alert("Something went wrong :(");
-        }
+        const result = await axios(`https://www.food2fork.com/api/search?key=${apiKey}&q=${this.query}`);
+        this.recipes = result.data.recipes;
     }
 }
