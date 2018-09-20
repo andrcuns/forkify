@@ -3,15 +3,16 @@ import { elements } from "./base";
 
 const formatCount = count => {
     if (count) {
-        const [int, dec] = count.toFixed(2).split(".").map(el => parseInt(el, 10));
+        const roundedCount = Math.round(count * 10) / 10;
+        const [int, dec] = roundedCount.toString().split(".").map(el => parseInt(el, 10));
         if (!dec) {
-            return count;
+            return roundedCount;
         }
         if (int === 0) {
-            const fr = new Fraction(count);
+            const fr = new Fraction(roundedCount);
             return `${fr.numerator}/${fr.denominator}`;
         }
-        const fr = new Fraction(count - int);
+        const fr = new Fraction(roundedCount - int);
         return `${int} ${fr.numerator}/${fr.denominator}`;
     }
     return "?";

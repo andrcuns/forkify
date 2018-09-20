@@ -27,6 +27,14 @@ export const renderLike = like => {
     elements.likesList.insertAdjacentHTML("beforeend", markup);
 };
 
+export const renderLikes = likes => {
+    if (likes) {
+        likes.forEach(like => {
+            renderLike(like);
+        });
+    }
+};
+
 export const deleteLike = id => {
     const like = document.querySelector(`.likes__link[href*='${id}']`).parentElement;
     if (like) like.parentElement.removeChild(like);

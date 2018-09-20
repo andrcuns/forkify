@@ -8,13 +8,6 @@ import * as listView from "./views/listView";
 import * as likesView from "./views/likesView";
 import { elements, renderLoader, clearLoader } from "./views/base";
 
-/**
- * Global state of the app
- * - Search object
- * - Current recipe object
- * - Shopping list object
- * - Liked recipes
- */
 const state = {};
 
 /**
@@ -84,7 +77,6 @@ const controlList = () => {
     state.list.items.forEach(item => listView.renderItem(item));
 };
 
-state.likes = new Likes();
 /**
  * LIKE CONTROLLER
  */
@@ -108,6 +100,13 @@ const controlLike = () => {
     }
     likesView.toggleLikesMenu(state.likes.getLikesNumber());
 };
+
+window.addEventListener("load", () => {
+    state.likes = new Likes();
+    state.likes.readStorage();
+    likesView.toggleLikesMenu(state.likes.getLikesNumber());
+    likesView.renderLikes(state.likes.likes);
+});
 
 elements.shopping.addEventListener("click", e => {
     const id = e.target.closest(".shopping__item").dataset.itemid;
